@@ -2,6 +2,7 @@ package net.daechler.mobsleep;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.Event;
@@ -27,7 +28,10 @@ public class MobSleep extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerBedEnter(PlayerBedEnterEvent event) {
-        // Force the player to sleep, even if mobs are close by
-        event.setUseBed(Event.Result.ALLOW);
+        // Check if the player is in an overworld-like world before allowing them to sleep
+        if(event.getPlayer().getWorld().getEnvironment() == World.Environment.NORMAL) {
+            // Force the player to sleep, even if mobs are close by
+            event.setUseBed(Event.Result.ALLOW);
+        }
     }
 }
